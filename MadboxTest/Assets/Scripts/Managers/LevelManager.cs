@@ -10,11 +10,27 @@ public class LevelManager : MonoBehaviour
     public int PointsAmount = 5;
     public Player[] Players;
 
-    private List<Player> finishedPlayers;
+    private List<Player> finishedPlayers = new List<Player>();
 
     private void Start()
     {
         GameManager.Instance.SetUpNewLevel(this);
+
+
+        Player[] newPlayers = new Player[GameManager.Instance.PlayerCount];
+        for(int i = 0; i < GameManager.Instance.PlayerCount; i++)
+        {
+            Players[i].gameObject.SetActive(true);
+            newPlayers[i] = Players[i];
+        }
+
+        Players = new Player[newPlayers.Length];
+        newPlayers.CopyTo(Players, 0);
+
+        if (Players.Length == 1)
+        {
+            Players[0].GetComponentInChildren<Camera>().rect = new Rect(0, 0, 1, 1);
+        }
     }
 
     private void OnEnable()

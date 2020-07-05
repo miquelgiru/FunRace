@@ -2110,7 +2110,7 @@ GameObject:
   - component: {fileID: 6508021553419933181}
   - component: {fileID: 6508021553419933178}
   m_Layer: 0
-  m_Name: Ethan
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

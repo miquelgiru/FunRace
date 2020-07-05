@@ -73,11 +73,11 @@ public class GameManager : MonoBehaviour
         scorePanel.SetUpPanel(new List<Player>(players));
         scorePanel.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
 
         scorePanel.gameObject.SetActive(false);
 
-        if (indexLevel < SceneNames.Length)
+        if (indexLevel + 1 < SceneNames.Length)
             LoadNextLevel(++indexLevel);
         else
         {
