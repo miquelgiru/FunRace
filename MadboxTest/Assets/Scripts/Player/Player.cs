@@ -56,17 +56,23 @@ public class Player : MonoBehaviour
                 break;
         }
 
-        transform.position += new Vector3(0, 0, z);
+        if (z > 0)
+            PlayerAnimator.SetBool("Run", true);
+        else
+            PlayerAnimator.SetBool("Run", false);
+
+
+        //transform.position += new Vector3(0, 0, z);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
             ResetPlayer();
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Finish"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Finish"))
         {
             PlayerFinished();
         }
@@ -79,6 +85,7 @@ public class Player : MonoBehaviour
 
     private void PlayerFinished()
     {
+        PlayerAnimator.SetBool("Run", false);
         HasFinished = true;
         OnPlayerFinished?.Invoke(this);
     }
@@ -89,7 +96,11 @@ public class Player : MonoBehaviour
         PlayerAnimator.SetBool("Die", true);
 
         while (PlayerAnimator.GetBool("Die"))
+        {
+            if (PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                PlayerAnimator.SetBool("Die", false);
             yield return null;
+        }
 
         transform.position = startPosition;
         disabled = false;

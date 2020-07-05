@@ -79,5 +79,9 @@ public class GameManager : MonoBehaviour
 
         if (indexLevel < SceneNames.Length)
             LoadNextLevel(++indexLevel);
+        else
+        {
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        }
     }
 }
